@@ -13,6 +13,23 @@ import {
   OrthographicCamera
 }from 'three'
 
+/*
+  TO DO:
+  tidy up index
+  move shaders to respective pass files
+
+  add colour absorbsion pass
+  correct aspect ratio
+  add interaction
+
+  quality settings buttons or detector
+
+  branding:
+      field Logo
+      github link
+      cover letter popup
+      Visual framing / composition
+*/
 
 (function(){
 
@@ -24,7 +41,9 @@ import {
 
     renderer = new WebGLRenderer();
     renderer.setPixelRatio( window.devicePixelRatio );
-    renderer.setSize( window.innerWidth, window.innerHeight );
+    //renderer.setSize( window.innerWidth, window.innerHeight );
+    renderer.setSize( settings.render_texture_size.x, settings.render_texture_size.y );
+
     document.body.appendChild( renderer.domElement );
 
     var colour_texture = new TextureLoader().load( 'assets/colour_gradient.jpg' );
@@ -53,8 +72,8 @@ import {
       passes.velocity.set_uniform("positions",  passes.position.getOutputTexture());
       passes.velocity.set_uniform("excretions", passes.excrete.getOutputTexture());
       passes.velocity.set_uniform("time",       time);
-      passes.velocity.set_uniform("sniff_rotation",  3.1415926*.8 + (Math.sin(time)*3.14159/10.0));
-      passes.velocity.set_uniform("sniff_odds",  ((Math.sin(time/3.0) + 1)/2.0)*0.5+0.1);
+      passes.velocity.set_uniform("sniff_rotation",  3.1415926*.8 + (Math.sin(time/4)*3.14159/10.0));
+      passes.velocity.set_uniform("sniff_odds",  ((Math.sin(time/3) + 1)/2.0)*0.2+0.1);
       time+=0.01;
     });
 
