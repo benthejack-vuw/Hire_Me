@@ -1,4 +1,16 @@
-export const VertexPassThrough = [
+/*
+
+export const stub = {
+  vert:[
+  ].join( "\n" ),
+
+  frag:[
+  ].join( "\n" )
+}
+
+*/
+
+export const vertex_passthrough = [
 
 		"varying vec2 vUv;",
 
@@ -12,7 +24,7 @@ export const VertexPassThrough = [
 ].join( "\n" );
 
 
-export const FragmentClearWithFloats = [
+export const fragment_clear_with_floats = [
 
 		"uniform vec4 clearColor;",
 
