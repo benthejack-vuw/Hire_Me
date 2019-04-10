@@ -29,6 +29,8 @@ import {
       github link
       cover letter popup
       Visual framing / composition
+      Github readme
+      
 */
 
 (function(){
