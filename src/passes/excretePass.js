@@ -15,7 +15,6 @@ import {
 
 import ComputePass       from '../shaderCompute/computePass.js'
 import * as settings     from '../settings.js'
-import {excrete_shader}  from '../compute_shaders'
 
 export default function excrete_pass(i_velocityPass){
 
@@ -30,7 +29,6 @@ export default function excrete_pass(i_velocityPass){
 	};
 
 	const excrete_shader_material = new ShaderMaterial( {
-
 		uniforms:       excrete_uniforms,
 		vertexShader:   excrete_shader.vert,
 		fragmentShader: excrete_shader.frag,
@@ -38,9 +36,7 @@ export default function excrete_pass(i_velocityPass){
 		blending:       NormalBlending,
 		depthTest:      true,
 		transparent:    true
-
 	});
-
 
   let  excrete_scene = new Scene();
 	let  excrete_camera = new OrthographicCamera(0, settings.render_texture_size.x, settings.render_texture_size.y, 0, -10000, 10000);
@@ -55,12 +51,14 @@ export default function excrete_pass(i_velocityPass){
 	return excrete_output_scene;
 }
 
+
 function generate_output_geometry(){
 
-  let   output_geometry  = new BufferGeometry();
-  const particle_count = Math.pow(settings.particle_count_sq,2);
-  var   vertices         = new Float32Array(particle_count*3);
-  var   ids              = new Float32Array(particle_count);
+  const particle_count  = Math.pow(settings.particle_count_sq,2);
+
+  let   output_geometry = new BufferGeometry();
+  let   vertices        = new Float32Array(particle_count*3);
+  let   ids             = new Float32Array(particle_count);
 
 	for(var i = 0; i < particle_count; ++i){
 		vertices[i*3]     = i%settings.particle_count_sq;
@@ -73,4 +71,37 @@ function generate_output_geometry(){
   output_geometry.addAttribute( 'id_in',    new BufferAttribute( ids, 1 ) );
 
   return output_geometry;
+}
+
+
+const excrete_shader = {
+  vert:[
+    "uniform sampler2D positions;",
+    "uniform vec2 positions_size;",
+    "uniform vec2 excretion_texture_size;",
+    "uniform float excrete_size;",
+
+    "attribute float id_in;",
+    "varying   float id;",
+
+    "void main() {",
+        "vec2 pixelStep = vec2(1.0/positions_size.x, 1.0/positions_size.y);",
+        "vec2 texOffset = vec2(pixelStep.x/2.0, pixelStep.y/2.0);",
+        "vec4 texPosition = texture2D(positions, position.xy*pixelStep.xy+texOffset.xy) * vec4(excretion_texture_size, 1.0, 1.0);",
+
+        "vec4 mvPosition = modelViewMatrix * texPosition;",
+        "id = id_in;",
+        "gl_PointSize = excrete_size;",
+        "gl_Position = projectionMatrix * mvPosition;",
+    "}",
+  ].join( "\n" ),
+
+  frag:[
+    "uniform bool do_alpha;",
+    "varying float id;",
+    "void main() {",
+      "float strength = (0.5-distance(gl_PointCoord, vec2(0.5,0.5)))*2.0;",
+      "gl_FragColor = vec4(strength, id, 0.0, do_alpha ? strength : 1.0);",
+    "}",
+  ].join( "\n" )
 }

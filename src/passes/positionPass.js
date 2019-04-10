@@ -7,12 +7,12 @@ import {
 
 import ComputePass       from '../shaderCompute/computePass.js'
 import * as settings     from '../settings.js'
-import {position_shader} from '../compute_shaders'
+import {vertex_passthrough} from '../shaderCompute/defaultShaders.js'
 
 
 export default function position_pass(i_velocityPass){
 
-	var position_uniforms = {
+	const position_uniforms = {
     computedOutput:   { type: "t", value:null },
     velocities:       { type: "t", value:null },
 
@@ -20,7 +20,7 @@ export default function position_pass(i_velocityPass){
     speed:            { type: "f", value:settings.particle_speed },
 	};
 
-	var position_shader_material = new ShaderMaterial( {
+	const position_shader_material = new ShaderMaterial( {
 
 		uniforms:       position_uniforms,
 		vertexShader:   position_shader.vert,
@@ -42,6 +42,8 @@ export default function position_pass(i_velocityPass){
 }
 
 
+
+
 function initialize_position_data(){
 
   const particle_count = Math.pow(settings.particle_count_sq, 2);
@@ -55,4 +57,34 @@ function initialize_position_data(){
   }
 
   return position_data;
+}
+
+
+
+export const position_shader = {
+  vert:vertex_passthrough,
+  frag:[
+    "uniform sampler2D computedOutput;",
+    "uniform sampler2D velocities;",
+
+    "uniform vec2 positions_size;",
+    "uniform float speed;",
+
+    "varying vec2 vUv;",
+
+    "void main() {",
+
+      "vec2 pixelStep = vec2(1.0/positions_size.x, 1.0/positions_size.y);",
+      "vec2 texOffset = vec2(pixelStep.x/2.0, pixelStep.y/2.0);",
+      "vec2 tex       = floor(vUv*positions_size);",
+      "vec2 texel_pos = tex*pixelStep+texOffset;", //webgl1 doesn't have texelfetch
+
+      "vec2 position = texture2D(computedOutput, texel_pos).xy;",
+      "vec2 velocity = texture2D(velocities,     texel_pos).xy;",
+      "position += vec2(cos(velocity.x*6.2831852) * speed, sin(velocity.x*6.2831852) * speed);",
+      "position.x = mod(position.x, 1.0); ",
+      "position.y = mod(position.y, 1.0); ",
+      "gl_FragColor = vec4(position, 0.0, 1.0);",
+    "}"
+  ].join( "\n" )
 }
