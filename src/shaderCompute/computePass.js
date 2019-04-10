@@ -28,6 +28,7 @@ export default class ComputePass{
     	this.isTempDataTexture = false;
     	this.size = i_bufferSize;
     	this.precision = i_precision === undefined ? FloatType : i_precision;
+      this.linked_buffers = {};
 
     	this.__add_frame_buffer(this.bufferSize, this.precision);
     	if(i_doubleBuffer)
@@ -82,6 +83,22 @@ export default class ComputePass{
 
   }
 
+  __update_linked_buffer_textures(){
+
+    const keys = Object.keys(this.linked_buffers);
+    let uniform_name;
+
+    for(let i = 0; i < keys.length; ++i){
+      uniform_name = keys[i];
+      this.set_uniform(uniform_name, this.linked_buffers[uniform_name].getOutputTexture());
+    }
+
+  }
+
+  link_pass_to_uniform(uniform_name, compute_pass){
+    this.linked_buffers[uniform_name] = compute_pass;
+  }
+
   set_uniform(uniform_name, value){
     this.shaderMaterial.uniforms[uniform_name].value = value;
   }
@@ -90,8 +107,8 @@ export default class ComputePass{
   	this.updateFunction = i_updateFunc;
   }
 
-
   update(){
+    this.__update_linked_buffer_textures();
   	this.updateFunction();
   }
 
@@ -176,8 +193,8 @@ export default class ComputePass{
 
   		this.clearMaterial = new ShaderMaterial( {
   					uniforms: clearUniforms,
-  					vertexShader:   SHADER.VertexPassThrough,
-  					fragmentShader: SHADER.FragmentClearWithFloats,
+  					vertexShader:   SHADER.vertex_passthrough,
+  					fragmentShader: SHADER.fragment_clear_with_floats,
   					blending:       NormalBlending,
   					depthTest:      false,
   					transparent:    false
