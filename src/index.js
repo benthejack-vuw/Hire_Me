@@ -15,7 +15,7 @@ import {
 
 /*
   TO DO:
-  tidy up index
+    DONE -------- tidy up index
     DONE -------- move shaders to respective pass files
     add colour absorbsion pass
     correct aspect ratio
@@ -88,12 +88,12 @@ import {
   //this way you can disable a pass or two when you're debugging other passes.
   //add them in the order you need them to execute.
   function add_passes_to_gpuProg(gpu_compute_prog, passes){
-    gpu_compute_prog.addPass(passes.velocity);
-    gpu_compute_prog.addPass(passes.position);
-    gpu_compute_prog.addPass(passes.excrete);
-    gpu_compute_prog.addPass(passes.excrete_a);
-    gpu_compute_prog.addPass(passes.render);
-    gpu_compute_prog.addPass(passes.output);
+    gpu_compute_prog.add_pass(passes.velocity);
+    gpu_compute_prog.add_pass(passes.position);
+    gpu_compute_prog.add_pass(passes.excrete);
+    gpu_compute_prog.add_pass(passes.excrete_a);
+    gpu_compute_prog.add_pass(passes.render);
+    gpu_compute_prog.add_pass(passes.output);
   }
 
 

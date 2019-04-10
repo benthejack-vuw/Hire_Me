@@ -42,7 +42,7 @@ export default function velocity_pass(){
     let velocityPass = new ComputePass(size, velocitiy_shader_material, true, FloatType);
 
     const velocity_data = initialize_random_headings();
-    velocityPass.initData(size, velocity_data);
+    velocityPass.init_data(size, velocity_data);
 
     return velocityPass;
 }

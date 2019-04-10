@@ -27,7 +27,7 @@ export default class GPUComputeProgram{
   }
 
 
-  addPass(i_computePass){
+  add_pass(i_computePass){
   	this.passes.push(i_computePass);
   }
 

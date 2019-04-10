@@ -38,21 +38,22 @@ export default class OutputTextureRect{
 
   render(i_renderer){
 
-  	let rendAutoSetting = i_renderer.autoClear;
-  	i_renderer.autoClear = this.autoClear;
-  	i_renderer.render(this.scene, this.camera);
-  	i_renderer.autoClear = rendAutoSetting;
+    if(this.autoClear){
+      i_renderer.clear();
+    }
 
+  	i_renderer.render(this.scene, this.camera);
+    
   }
 
 }
 
 export function create_output_pass(i_pass){
 
-	var output_pass = new OutputTextureRect(i_pass.getOutputTexture(), {x:i_pass.size.x, y:i_pass.size.y});
+	var output_pass = new OutputTextureRect(i_pass.get_output_texture(), {x:i_pass.size.x, y:i_pass.size.y});
 
 	output_pass.set_update_function(function(){
-		output_pass.material.map = i_pass.getOutputTexture();
+		output_pass.material.map = i_pass.get_output_texture();
 	});
 
 	return output_pass;

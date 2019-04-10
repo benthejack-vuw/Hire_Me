@@ -36,7 +36,7 @@ export default function position_pass(i_velocityPass){
 	let position_pass = new ComputePass(size, position_shader_material, true, FloatType);
 
   const position_data = initialize_position_data();
-  position_pass.initData(size, position_data);
+  position_pass.init_data(size, position_data);
 
 	return position_pass;
 }

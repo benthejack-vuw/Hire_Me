@@ -90,7 +90,7 @@ export default class ComputePass{
 
     for(let i = 0; i < keys.length; ++i){
       uniform_name = keys[i];
-      this.set_uniform(uniform_name, this.linked_buffers[uniform_name].getOutputTexture());
+      this.set_uniform(uniform_name, this.linked_buffers[uniform_name].get_output_texture());
     }
 
   }
@@ -113,7 +113,7 @@ export default class ComputePass{
   }
 
 
-  initData(size, data) {
+  init_data(size, data) {
 
   	let texture = new DataTexture(
   		new Float32Array(data),
@@ -134,7 +134,7 @@ export default class ComputePass{
 
   }
 
-  getOutputTexture(i_next){
+  get_output_texture(i_next){
 
   	if(this.isTempDataTexture){
   		return this.shaderMaterial.uniforms.computedOutput.value;
@@ -178,10 +178,11 @@ export default class ComputePass{
   	for(let i = 0; i < this.frameBuffers.length; ++i){
   		i_renderer.clearTarget(this.frameBuffers[i],true);
     }
+    
   }
 
   //renders rgb values to the fbo using a shader
-  clearWithFloatValues(i_r, i_g, i_b, i_a, i_renderer){
+  clear_with_float_values(i_r, i_g, i_b, i_a, i_renderer){
 
   	if(!this.clearScene){
 
