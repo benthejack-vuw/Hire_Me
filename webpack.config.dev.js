@@ -4,7 +4,7 @@ const webpack = require("webpack");
 module.exports = {
   entry: [path.join(__dirname, "src/index.js")],
   output: {
-    path: path.join(__dirname, 'build/', 'scripts/'),
+    path: path.join(__dirname, 'www/', 'scripts/'),
     filename: "hello_field.bundle.js"
   },
 
@@ -25,8 +25,8 @@ module.exports = {
 
   devtool: "inline-source-map",
   devServer: {
-     publicPath: path.resolve(__dirname,'/build', '/scripts'),
-     contentBase: path.resolve(__dirname, "build"),
+     publicPath: path.resolve(__dirname,'/www', '/scripts'),
+     contentBase: path.resolve(__dirname, "www"),
      watchContentBase: true,
      compress: true,
      port: 9000,

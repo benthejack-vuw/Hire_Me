@@ -6,10 +6,10 @@
   "scripts": {
     "dev": "webpack-dev-server --config webpack.config.dev.js --mode=development -d",
     "build": "run-s mkdirs compile",
-    "compile": "run-p pack copy-www",
+    "compile": "run-p pack copy-web-files",
     "pack": "webpack --mode=production",
-    "mkdirs": "mkdirp ./build && mkdirp ./build/assets && mkdirp ./build/scripts",
-    "copy-www": "cpx 'www/assets/*.*' 'build/assets' && cpx ./www/index.css ./build && cpx ./www/index.html ./build --watch"
+    "mkdirs": "mkdirp ./www && mkdirp ./www/assets && mkdirp ./www/scripts",
+    "copy-web-files": "cpx 'web_files/assets/*.*' 'www/assets' && cpx ./web_files/index.css ./www && cpx ./web_files/index.html ./www"
   },
   "author": "Ben Jack",
   "license": "ISC",
