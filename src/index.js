@@ -1,10 +1,11 @@
-import * as settings        from './settings.js'
+import * as all_settings    from './settings.js'
 import GPUComputeProgram    from './shaderCompute/gpuComputeProgram.js'
 import {create_output_pass} from './shaderCompute/outputTextureRect.js'
 import velocity_pass        from './passes/velocityPass.js'
 import position_pass        from './passes/positionPass.js'
 import excrete_pass         from './passes/excretePass.js'
 import render_pass          from './passes/renderPass.js'
+
 
 import {
   TextureLoader,
@@ -17,10 +18,9 @@ import {
   TO DO:
     DONE -------- tidy up index
     DONE -------- move shaders to respective pass files
-    add colour absorbsion pass
-    correct aspect ratio
-    add interaction
-    background adjustment
+    DONE -------- correct aspect ratio
+    DONE -------- add interaction
+    DONE -------- background adjustment
 
     DONE -------- update computepass with a link_pass_to_uniform function
     break shaderCompute library off into its own NPM package
@@ -29,13 +29,13 @@ import {
         Documentation
         Examples
 
-    quality settings buttons or detector
+    DONE -------- quality settings buttons or detector
 
     branding:
-        field logo
-        github link
+        DONE -------- field logo
+        DONE -------- github link
         cover letter popup
-        Visual framing / composition
+        DONE -------- Visual framing / composition
         Github readme & npm package docs
         Process document & video?
 
@@ -44,41 +44,83 @@ import {
 
 (function(){
 
+  document.addEventListener("DOMContentLoaded", start);
 
-  document.addEventListener("DOMContentLoaded", setup);
+  let gpu_compute_prog;
+  let renderer;
+  let settings = all_settings.high;
+  let menu_open = false;
+  let selected_button;
 
+  function start(){
+    renderer = set_up_threeJS();
+    setup_gpu_prog();
+    set_menu_listeners();
+    draw_loop();
+    selected_button = document.getElementById("high");
+  }
 
-  function setup(){
+  window.set_settings = function(preset){
+    settings = all_settings[preset];
+    setup_gpu_prog();
+    selected_button.classList.remove("selected");
+    selected_button = document.getElementById(preset)
+    selected_button.classList.add("selected");
+  }
 
-      let renderer = set_up_threeJS();
-      let gpu_compute_prog  = new GPUComputeProgram(renderer);
+  function setup_gpu_prog(){
+      gpu_compute_prog = new GPUComputeProgram(renderer);
       let passes = create_passes();
 
       add_passes_to_gpuProg(gpu_compute_prog, passes);
       set_pass_uniforms(passes);
       set_pass_update_functions(passes);
-
-      start_draw_loop(gpu_compute_prog);
   }
 
+  function set_menu_listeners(){
+
+    document.getElementById("chevron").addEventListener( 'click', function(){
+        animate(document.getElementById("menu"), "height", "pt", menu_open*30, (1.0-menu_open)*30, 0.1, function(){menu_open = (menu_open+1)%2;});
+    });
+
+    renderer.domElement.addEventListener( 'click', function(){
+      if(menu_open == 1)
+        animate(document.getElementById("menu"), "height", "pt", 30, 0, 0.1, function(){menu_open = 0;});
+    });
+
+  }
 
   function set_up_threeJS(){
-    let renderer = new WebGLRenderer();
-    renderer.setPixelRatio( window.devicePixelRatio );
-    renderer.setSize( window.innerWidth, window.innerHeight );
-
+    let renderer = new WebGLRenderer({ alpha: true });
     document.body.appendChild( renderer.domElement );
+
+    function set_window_size(){
+
+      let w_scale = window.innerWidth/settings.render_texture_size.x;
+      let h_scale = window.innerHeight/settings.render_texture_size.y;
+      let scale   = Math.max(w_scale, h_scale);
+      renderer.setSize( settings.render_texture_size.x*scale, settings.render_texture_size.y*scale);
+
+
+      renderer.setPixelRatio( window.devicePixelRatio );
+    }
+
+    window.addEventListener("resize", set_window_size);
+    set_window_size();
+
     return renderer;
   }
 
 
+
+
   function create_passes(){
     let passes = {};
-    passes.velocity   = velocity_pass();
-    passes.position   = position_pass();
-    passes.excrete    = excrete_pass();
-    passes.excrete_a  = excrete_pass();
-    passes.render     = render_pass();
+    passes.velocity   = velocity_pass(settings);
+    passes.position   = position_pass(settings);
+    passes.excrete    = excrete_pass(settings);
+    passes.excrete_a  = excrete_pass(settings);
+    passes.render     = render_pass(settings);
     passes.output     = create_output_pass(passes.render);
     return passes;
   }
@@ -122,21 +164,38 @@ import {
     passes.velocity.set_update_function(function(){
       passes.velocity.set_uniform("time",       time);
       passes.velocity.set_uniform("sniff_rotation",  3.1415926*.8 + (Math.sin(time/4)*3.14159/10.0));
-      passes.velocity.set_uniform("sniff_odds",  ((Math.sin(time/3) + 1)/2.0)*0.2+0.1);
+      passes.velocity.set_uniform("sniff_odds",  ((Math.sin(time/2.5) + 1)/2.0)*(settings.sniff_odds_max-settings.sniff_odds_min)+settings.sniff_odds_min);
       time+=0.01;
     });
   }
 
 
-  function start_draw_loop(gpu_compute_prog){
+  function draw_loop() {
+    gpu_compute_prog.render();
+  	requestAnimationFrame( draw_loop );
+  }
 
-    //gpu_compute_prog curried into draw_loop
-    function draw_loop() {
-      gpu_compute_prog.render();
-    	requestAnimationFrame( draw_loop );
-    }
 
-    draw_loop();
+  function animate(element, property, unit, start, end, time, callback) {
+      let initial_time = Date.now();
+      let milli_step = (end-start)/(time*1000.0);
+
+      function do_animate(){
+        let passed_time = Date.now()-initial_time;
+        let value = start+(milli_step*passed_time);
+
+        if(passed_time < time*1000){
+          element.style[property] = value + unit;
+          requestAnimationFrame( do_animate );
+        }else{
+          element.style[property] = end + unit;
+          if(!(callback === undefined)){
+            callback();
+          }
+        }
+      }
+
+      do_animate();
   }
 
 }())

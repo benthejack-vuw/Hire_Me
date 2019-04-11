@@ -178,7 +178,7 @@ export default class ComputePass{
   	for(let i = 0; i < this.frameBuffers.length; ++i){
   		i_renderer.clearTarget(this.frameBuffers[i],true);
     }
-    
+
   }
 
   //renders rgb values to the fbo using a shader

@@ -6,11 +6,10 @@ import {
 } from 'three'
 
 import ComputePass       from '../shaderCompute/computePass.js'
-import * as settings     from '../settings.js'
 import {vertex_passthrough} from '../shaderCompute/defaultShaders.js'
 
 
-export default function position_pass(i_velocityPass){
+export default function position_pass(settings){
 
 	const position_uniforms = {
     computedOutput:   { type: "t", value:null },
@@ -35,16 +34,14 @@ export default function position_pass(i_velocityPass){
 	const size = {x: settings.particle_count_sq, y: settings.particle_count_sq};
 	let position_pass = new ComputePass(size, position_shader_material, true, FloatType);
 
-  const position_data = initialize_position_data();
+  const position_data = initialize_position_data(settings);
   position_pass.init_data(size, position_data);
 
 	return position_pass;
 }
 
 
-
-
-function initialize_position_data(){
+function initialize_position_data(settings){
 
   const particle_count = Math.pow(settings.particle_count_sq, 2);
 

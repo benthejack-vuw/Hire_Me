@@ -14,12 +14,10 @@ import {
 } from 'three'
 
 import ComputePass       from '../shaderCompute/computePass.js'
-import * as settings     from '../settings.js'
 
-export default function excrete_pass(i_velocityPass){
+export default function excrete_pass(settings){
 
 	const excrete_uniforms = {
-    computedOutput:           { type: "t", value: null },
     positions:                { type: "t", value: null },
 
     do_alpha:                 { type: "f",  value: false },
@@ -42,7 +40,7 @@ export default function excrete_pass(i_velocityPass){
 	let  excrete_camera = new OrthographicCamera(0, settings.render_texture_size.x, settings.render_texture_size.y, 0, -10000, 10000);
 	excrete_camera.position.z = 100;
 
-  const excrete_geometry = generate_output_geometry();
+  const excrete_geometry = generate_output_geometry(settings);
 
   const particleSystem = new Points( excrete_geometry, excrete_shader_material );
   excrete_scene.add( particleSystem );
@@ -52,7 +50,7 @@ export default function excrete_pass(i_velocityPass){
 }
 
 
-function generate_output_geometry(){
+function generate_output_geometry(settings){
 
   const particle_count  = Math.pow(settings.particle_count_sq,2);
 
@@ -99,9 +97,14 @@ const excrete_shader = {
   frag:[
     "uniform bool do_alpha;",
     "varying float id;",
+
+    "float rand(vec2 seed){",
+        "return fract(sin(dot(seed.xy ,vec2(12.9898,78.233))) * 43758.5453);",
+    "}",
+
     "void main() {",
       "float strength = (0.5-distance(gl_PointCoord, vec2(0.5,0.5)))*2.0;",
-      "gl_FragColor = vec4(strength, id, 0.0, do_alpha ? strength : 1.0);",
+      "gl_FragColor = vec4( do_alpha ? rand(vec2(id,id))*0.2 : strength, id, 0.0, do_alpha ? strength : 1.0);",
     "}",
   ].join( "\n" )
 }

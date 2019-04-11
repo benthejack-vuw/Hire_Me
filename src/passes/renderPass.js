@@ -8,9 +8,8 @@ import {
 
 import {vertex_passthrough} from '../shaderCompute/defaultShaders.js'
 import ComputePass          from '../shaderCompute/computePass.js'
-import * as settings        from '../settings.js'
 
-export default function render_pass(i_velocityPass){
+export default function render_pass(settings){
 
 	const render_uniforms = {
     computedOutput:           { type: "t", value:null },
@@ -58,8 +57,8 @@ const render_shader = {
       "old_color.a = old_color.a < 0.1 ? 0.0 : old_color.a;",
       "float mask = texture2D(excretions, vUv).a;",
       "mask = smoothstep(lower_mask_bound, upper_mask_bound, mask);",
-      "vec4 color_out = texture2D(colour_map, vUv);",
-      "color_out.a = mask+old_color.a;",
+      "vec4 color_out = texture2D(colour_map, vec2(vUv.x, 1.0-vUv.y));",
+      "color_out.a = (mask+old_color.a);",
       "gl_FragColor = color_out;",
     "}",
 
