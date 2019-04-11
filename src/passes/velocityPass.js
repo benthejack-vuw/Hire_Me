@@ -64,7 +64,6 @@ function initialize_random_headings(settings){
 }
 
 
-
 function velocity_shader(settings){
 
   return{
@@ -155,7 +154,6 @@ function velocity_shader(settings){
         "}else{",
           "new_heading = rand_heading(seed, heading);",
         "}",
-        //"float new_heading =  rand_heading(seed2, heading);",
         "gl_FragColor = vec4(new_heading, id, 0.0, 1.0);",
 
     	"}"

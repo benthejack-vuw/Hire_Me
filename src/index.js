@@ -34,7 +34,6 @@ import {
     branding:
         DONE -------- field logo
         DONE -------- github link
-        cover letter popup
         DONE -------- Visual framing / composition
         Github readme & npm package docs
         Process document & video?

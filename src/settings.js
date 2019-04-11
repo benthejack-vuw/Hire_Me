@@ -12,12 +12,12 @@ export const low = {
     particle_size       : 25,
     particle_speed      : 0.001,
     sniff_size          : 25.0/1024.0,
-    sniff_odds_min      : 0.1,
+    sniff_odds_min      : 0.0,
     sniff_odds_max      : 0.2,
     sniff_samples_sq    : 3,
 
     //Rendering
-    fade_amount : 0.98,
+    fade_amount : 0.985,
     lower_mask_bound : 0.8,
     upper_mask_bound : 1.0,
 }
