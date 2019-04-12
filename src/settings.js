@@ -82,7 +82,7 @@ export const four_k = {
     particle_speed      : 0.003,
     sniff_size          : 30.0/1920.0,
     sniff_odds_min      : 0.1,
-    sniff_odds_max      : 0.3,
+    sniff_odds_max      : 0.4,
     sniff_samples_sq    : 5,
 
     //Rendering
