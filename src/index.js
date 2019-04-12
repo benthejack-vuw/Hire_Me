@@ -158,14 +158,32 @@ import {
   //any uniforms you want to change over time can be changed in the computePasses'
   //update function. The update function is set like below.
   function set_pass_update_functions(passes){
-    let time = 0;
+
+    let fps_target_delta = 1000.0/settings.fps_target;
+    let start_time = Date.now();
 
     passes.velocity.set_update_function(function(){
-      passes.velocity.set_uniform("time",       time);
-      passes.velocity.set_uniform("sniff_rotation",  3.1415926*.8 + (Math.sin(time/4)*3.14159/10.0));
-      passes.velocity.set_uniform("sniff_odds",  ((Math.sin(time/2.5) + 1)/2.0)*(settings.sniff_odds_max-settings.sniff_odds_min)+settings.sniff_odds_min);
-      time+=0.01;
+      let elapsed = (Date.now()-start_time)/1000.0;
+
+      passes.velocity.set_uniform("time",       elapsed);
+      passes.velocity.set_uniform("sniff_rotation",  3.1415926*.8 + (Math.sin(elapsed/4)*3.14159/10.0));
+      passes.velocity.set_uniform("sniff_odds",  ((Math.sin(elapsed/3.5) + 1)/2.0)*(settings.sniff_odds_max-settings.sniff_odds_min)+settings.sniff_odds_min);
     });
+
+
+    let previous_time = 0;
+    passes.position.set_update_function(function(){
+      //this ensures smooth performance on higher-framerate monitors
+      //time_delta_step is a scale number to multiply the particle step setSize
+      //depending on actual elapsed time
+      let elapsed = (Date.now()-start_time)/1000.0;
+      let time_delta_step = (elapsed-previous_time)*fps_target_delta;
+      console.log(time_delta_step);
+      passes.position.set_uniform("time_delta_step", time_delta_step);
+
+      previous_time = elapsed;
+    });
+
   }
 
 

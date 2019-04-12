@@ -10,9 +10,9 @@ export const low = {
 
     //Particles
     particle_size       : 25,
-    particle_speed      : 0.001,
+    particle_speed      : 0.003,
     sniff_size          : 25.0/1024.0,
-    sniff_odds_min      : 0.0,
+    sniff_odds_min      : 0.05,
     sniff_odds_max      : 0.2,
     sniff_samples_sq    : 3,
 
@@ -20,6 +20,8 @@ export const low = {
     fade_amount : 0.985,
     lower_mask_bound : 0.8,
     upper_mask_bound : 1.0,
+
+    fps_target: 60
 }
 
 
@@ -33,9 +35,9 @@ export const medium = {
 
 
     particle_size       : 22,
-    particle_speed      : 0.001,
+    particle_speed      : 0.003,
     sniff_size          : 25.0/1920.0,
-    sniff_odds_min      : 0.1,
+    sniff_odds_min      : 0.01,
     sniff_odds_max      : 0.4,
     sniff_samples_sq    : 5,
 
@@ -43,6 +45,8 @@ export const medium = {
     fade_amount : 0.98,
     lower_mask_bound : 0.5,
     upper_mask_bound : 1.0,
+
+    fps_target: 60
 }
 
 export const high = {
@@ -53,7 +57,7 @@ export const high = {
     particle_count_sq   : 100,
 
     particle_size       : 17,
-    particle_speed      : 0.001,
+    particle_speed      : 0.003,
     sniff_size          : 17.0/1920.0,
     sniff_odds_min      : 0.1,
     sniff_odds_max      : 0.4,
@@ -63,6 +67,8 @@ export const high = {
     fade_amount : 0.985,
     lower_mask_bound : 0.8,
     upper_mask_bound : 1.0,
+
+    fps_target: 60
 }
 
 export const four_k = {
@@ -73,7 +79,7 @@ export const four_k = {
     particle_count_sq   : 110,
 
     particle_size       : 30,
-    particle_speed      : 0.001,
+    particle_speed      : 0.003,
     sniff_size          : 30.0/1920.0,
     sniff_odds_min      : 0.1,
     sniff_odds_max      : 0.3,
@@ -83,6 +89,8 @@ export const four_k = {
     fade_amount : 0.985,
     lower_mask_bound : 0.7,
     upper_mask_bound : 1.0,
+
+    fps_target: 60
 }
 
 export const ultra = {
@@ -93,7 +101,7 @@ export const ultra = {
     particle_count_sq   : 200,
 
     particle_size       : 30,
-    particle_speed      : 0.001,
+    particle_speed      : 0.003,
     sniff_size          : 30.0/1920.0,
     sniff_odds_min      : 0.1,
     sniff_odds_max      : 0.3,
@@ -103,4 +111,6 @@ export const ultra = {
     fade_amount : 0.98,
     lower_mask_bound : 0.7,
     upper_mask_bound : 1.0,
+
+    fps_target: 60
 }

@@ -17,6 +17,7 @@ export default function position_pass(settings){
 
     positions_size:   { type: "v2", value: new Vector2(settings.particle_count_sq, settings.particle_count_sq)},
     speed:            { type: "f", value:settings.particle_speed },
+    time_delta_step:  { type: "f", value:settings.particle_speed }
 	};
 
 	const position_shader_material = new ShaderMaterial( {
@@ -65,6 +66,7 @@ export const position_shader = {
     "uniform sampler2D velocities;",
 
     "uniform vec2 positions_size;",
+    "uniform float time_delta_step;",
     "uniform float speed;",
 
     "varying vec2 vUv;",
@@ -78,7 +80,7 @@ export const position_shader = {
 
       "vec2 position = texture2D(computedOutput, texel_pos).xy;",
       "vec2 velocity = texture2D(velocities,     texel_pos).xy;",
-      "position += vec2(cos(velocity.x*6.2831852) * speed, sin(velocity.x*6.2831852) * speed);",
+      "position += vec2(cos(velocity.x*6.2831852) * speed * time_delta_step, sin(velocity.x*6.2831852) * speed * time_delta_step);",
       "position.x = mod(position.x, 1.0); ",
       "position.y = mod(position.y, 1.0); ",
       "gl_FragColor = vec4(position, 0.0, 1.0);",
