@@ -1,4 +1,4 @@
-### Hi Field
+# Hi Field
 I'm really into what you're doing and would love to work with you!
 
 My goal is to make beautiful interactive wonders for the web, for giant screens, and for little mobile screens too. I'm also really into generative and procedural art and design (I've been having fun CNC milling generative ceramics lately which you can check out on instagram: https://www.instagram.com/_benthejack_).
