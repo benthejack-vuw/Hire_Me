@@ -14,33 +14,6 @@ import {
   OrthographicCamera
 }from 'three'
 
-/*
-  TO DO:
-    DONE -------- tidy up index
-    DONE -------- move shaders to respective pass files
-    DONE -------- correct aspect ratio
-    DONE -------- add interaction
-    DONE -------- background adjustment
-
-    DONE -------- update computepass with a link_pass_to_uniform function
-    break shaderCompute library off into its own NPM package
-        Tidy up codebase & tie up loose ends
-        Fix compute pass constructor to have less arguments
-        Documentation
-        Examples
-
-    DONE -------- quality settings buttons or detector
-
-    branding:
-        DONE -------- field logo
-        DONE -------- github link
-        DONE -------- Visual framing / composition
-        Github readme & npm package docs
-        Process document & video?
-
-    contact office & find out person in charge of hiring
-*/
-
 (function(){
 
   document.addEventListener("DOMContentLoaded", start);
@@ -54,12 +27,12 @@ import {
   function start(){
     renderer = set_up_threeJS();
     setup_gpu_prog();
-    set_menu_listeners();
+    setup_html_listeners();
     draw_loop();
     selected_button = document.getElementById("high");
   }
 
-  window.set_settings = function(preset){
+  function set_settings(preset){
     settings = all_settings[preset];
     setup_gpu_prog();
     selected_button.classList.remove("selected");
@@ -68,17 +41,25 @@ import {
   }
 
   function setup_gpu_prog(){
+
       gpu_compute_prog = new GPUComputeProgram(renderer);
       let passes = create_passes();
-
       add_passes_to_gpuProg(gpu_compute_prog, passes);
       set_pass_uniforms(passes);
       set_pass_update_functions(passes);
+
   }
 
-  function set_menu_listeners(){
 
-    document.getElementById("chevron").addEventListener( 'click', function(){
+  function setup_html_listeners(){
+
+    document.getElementById("low").addEventListener( "click", function(){set_settings("low");} )
+    document.getElementById("medium").addEventListener( "click", function(){set_settings("medium");} )
+    document.getElementById("high").addEventListener( "click", function(){set_settings("high");} )
+    document.getElementById("four_k").addEventListener( "click", function(){set_settings("four_k");} )
+    document.getElementById("ultra").addEventListener( "click", function(){set_settings("ultra");} )
+
+    document.getElementById("chevron").addEventListener( "click", function(){
         animate(document.getElementById("menu"), "height", "pt", menu_open*30, (1.0-menu_open)*30, 0.1, function(){menu_open = (menu_open+1)%2;});
     });
 
@@ -89,18 +70,17 @@ import {
 
   }
 
+
   function set_up_threeJS(){
+
     let renderer = new WebGLRenderer({ alpha: true });
     document.body.appendChild( renderer.domElement );
 
     function set_window_size(){
-
       let w_scale = window.innerWidth/settings.render_texture_size.x;
       let h_scale = window.innerHeight/settings.render_texture_size.y;
       let scale   = Math.max(w_scale, h_scale);
       renderer.setSize( settings.render_texture_size.x*scale, settings.render_texture_size.y*scale);
-
-
       renderer.setPixelRatio( window.devicePixelRatio );
     }
 
@@ -109,8 +89,6 @@ import {
 
     return renderer;
   }
-
-
 
 
   function create_passes(){
@@ -155,8 +133,8 @@ import {
   }
 
 
-  //any uniforms you want to change over time can be changed in the computePasses'
-  //update function. The update function is set like below.
+  //any shader uniforms you want to change over time can be changed in the appropriate
+  //computePasses update function. Each computePasses update function is called before it is rendered.
   function set_pass_update_functions(passes){
 
     let fps_target_delta = 1000.0/settings.fps_target;
@@ -164,23 +142,17 @@ import {
 
     passes.velocity.set_update_function(function(){
       let elapsed = (Date.now()-start_time)/1000.0;
-
       passes.velocity.set_uniform("time",       elapsed);
       passes.velocity.set_uniform("sniff_rotation",  3.1415926*.8 + (Math.sin(elapsed/4)*3.14159/10.0));
       passes.velocity.set_uniform("sniff_odds",  ((Math.sin(elapsed/3.5) + 1)/2.0)*(settings.sniff_odds_max-settings.sniff_odds_min)+settings.sniff_odds_min);
     });
 
-
     let previous_time = 0;
     passes.position.set_update_function(function(){
-      //this ensures smooth performance on higher-framerate monitors
-      //time_delta_step is a scale number to multiply the particle step setSize
-      //depending on actual elapsed time
+      //framerate independent particle speeds!
       let elapsed = (Date.now()-start_time)/1000.0;
       let time_delta_step = (elapsed-previous_time)*fps_target_delta;
-      console.log(time_delta_step);
       passes.position.set_uniform("time_delta_step", time_delta_step);
-
       previous_time = elapsed;
     });
 
@@ -193,6 +165,7 @@ import {
   }
 
 
+  //animate an css property over a certian amount of time without jquery
   function animate(element, property, unit, start, end, time, callback) {
       let initial_time = Date.now();
       let milli_step = (end-start)/(time*1000.0);
