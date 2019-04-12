@@ -150,8 +150,8 @@ import {
     let previous_time = 0;
     passes.position.set_update_function(function(){
       //framerate independent particle speeds!
-      let elapsed = (Date.now()-start_time)/1000.0;
-      let time_delta_step = (elapsed-previous_time)*fps_target_delta;
+      let elapsed = (Date.now()-start_time);
+      let time_delta_step = (elapsed-previous_time)/fps_target_delta;
       passes.position.set_uniform("time_delta_step", time_delta_step);
       previous_time = elapsed;
     });

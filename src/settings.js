@@ -10,9 +10,9 @@ export const low = {
 
     //Particles
     particle_size       : 25,
-    particle_speed      : 0.003,
+    particle_speed      : 0.001,
     sniff_size          : 25.0/1024.0,
-    sniff_odds_min      : 0.05,
+    sniff_odds_min      : 0.01,
     sniff_odds_max      : 0.2,
     sniff_samples_sq    : 3,
 
@@ -35,7 +35,7 @@ export const medium = {
 
 
     particle_size       : 22,
-    particle_speed      : 0.003,
+    particle_speed      : 0.001,
     sniff_size          : 25.0/1920.0,
     sniff_odds_min      : 0.01,
     sniff_odds_max      : 0.4,
@@ -57,7 +57,7 @@ export const high = {
     particle_count_sq   : 100,
 
     particle_size       : 17,
-    particle_speed      : 0.003,
+    particle_speed      : 0.001,
     sniff_size          : 17.0/1920.0,
     sniff_odds_min      : 0.1,
     sniff_odds_max      : 0.4,
@@ -79,7 +79,7 @@ export const four_k = {
     particle_count_sq   : 110,
 
     particle_size       : 30,
-    particle_speed      : 0.003,
+    particle_speed      : 0.001,
     sniff_size          : 30.0/1920.0,
     sniff_odds_min      : 0.1,
     sniff_odds_max      : 0.4,
@@ -101,7 +101,7 @@ export const ultra = {
     particle_count_sq   : 200,
 
     particle_size       : 30,
-    particle_speed      : 0.003,
+    particle_speed      : 0.001,
     sniff_size          : 30.0/1920.0,
     sniff_odds_min      : 0.1,
     sniff_odds_max      : 0.3,
