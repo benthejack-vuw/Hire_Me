@@ -9,7 +9,7 @@
     "compile": "run-p pack copy-web-files",
     "pack": "webpack --mode=production",
     "mkdirs": "mkdirp ./www && mkdirp ./www/assets && mkdirp ./www/scripts",
-    "copy-web-files": "cpx 'web_files/assets/*.*' 'www/assets' && cpx ./web_files/index.css ./www && cpx ./web_files/index.html ./www"
+    "copy-web-files": "cpx 'web_files/assets/*.*' 'www/assets' && cpx ./web_files/index.css ./www && cpx ./web_files/index.html ./www && cpx ./web_files/favicon.png ./www"
   },
   "author": "Ben Jack",
   "license": "ISC",
