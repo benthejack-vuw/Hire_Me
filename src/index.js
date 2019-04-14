@@ -30,6 +30,7 @@ import {
     setup_gpu_prog();
     setup_html_listeners();
     selected_button = document.getElementById("high");
+    openFullscreen();
   }
 
   function set_settings(preset){
@@ -53,16 +54,19 @@ import {
 
   function setup_html_listeners(){
 
+    //quality settings buttons
     document.getElementById("low").addEventListener( "click", function(){set_settings("low");} )
     document.getElementById("medium").addEventListener( "click", function(){set_settings("medium");} )
     document.getElementById("high").addEventListener( "click", function(){set_settings("high");} )
     document.getElementById("four_k").addEventListener( "click", function(){set_settings("four_k");} )
     document.getElementById("ultra").addEventListener( "click", function(){set_settings("ultra");} )
 
+    //menu dropdown chevron
     document.getElementById("chevron").addEventListener( "click", function(){
         animate(document.getElementById("menu"), "height", "pt", menu_open*30, (1.0-menu_open)*30, 0.1, function(){menu_open = (menu_open+1)%2;});
     });
 
+    //hide menu on click anywhere in the renderer
     renderer.domElement.addEventListener( 'click', function(){
       if(menu_open == 1)
         animate(document.getElementById("menu"), "height", "pt", 30, 0, 0.1, function(){menu_open = 0;});
@@ -75,6 +79,7 @@ import {
 
     let renderer = new WebGLRenderer({ alpha: true });
     document.body.appendChild( renderer.domElement );
+    //start transparent and fade in on image load
     renderer.domElement.style.opacity = 0;
 
     function set_window_size(){
@@ -194,6 +199,18 @@ import {
       }
 
       do_animate();
+  }
+
+  function openFullscreen() {
+    if (document.body.requestFullscreen) {
+      document.body.requestFullscreen();
+    } else if (document.body.mozRequestFullScreen) { /* Firefox */
+      document.body.requestFullscreen.mozRequestFullScreen();
+    } else if (document.body.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+      document.body.webkitRequestFullscreen();
+    } else if (document.body.msRequestFullscreen) { /* IE/Edge */
+      document.body.msRequestFullscreen();
+    }
   }
 
 }())
