@@ -18,6 +18,7 @@ import {
 
   document.addEventListener("DOMContentLoaded", start);
 
+  let running = false;
   let gpu_compute_prog;
   let renderer;
   let settings = all_settings.high;
@@ -74,6 +75,7 @@ import {
 
     let renderer = new WebGLRenderer({ alpha: true });
     document.body.appendChild( renderer.domElement );
+    renderer.domElement.style.opacity = 0;
 
     function set_window_size(){
       let w_scale = window.innerWidth/settings.render_texture_size.x;
@@ -127,7 +129,14 @@ import {
     passes.excrete_a.set_uniform("do_alpha", true);
     passes.render.link_pass_to_uniform("excretions",   passes.excrete_a);
 
-    var colour_texture = new TextureLoader().load('assets/colour_gradient.jpg', function(texture){ draw_loop(); } );
+    var colour_texture = new TextureLoader().load('assets/colour_gradient.jpg',
+    function(texture){
+      if(!running){
+          animate(renderer.domElement, "opacity", "", 0.0, 1.0, 3.0);
+          draw_loop();
+          running = true;
+        }
+    });
     passes.render.set_uniform("colour_map",   colour_texture);
   }
 
