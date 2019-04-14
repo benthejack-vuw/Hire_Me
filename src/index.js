@@ -157,7 +157,7 @@ import {
       let elapsed = (Date.now()-start_time)/1000.0;
       passes.velocity.set_uniform("time",       elapsed);
       passes.velocity.set_uniform("sniff_rotation",  3.1415926*.8 + (Math.sin(elapsed/4)*3.14159/10.0));
-      passes.velocity.set_uniform("sniff_odds",  ((Math.sin(elapsed/3.5) + 1)/2.0)*(settings.sniff_odds_max-settings.sniff_odds_min)+settings.sniff_odds_min);
+      passes.velocity.set_uniform("sniff_odds",  ((Math.cos(elapsed/3.5) + 1)/2.0)*(settings.sniff_odds_max-settings.sniff_odds_min)+settings.sniff_odds_min);
     });
 
     let previous_time = 0;
