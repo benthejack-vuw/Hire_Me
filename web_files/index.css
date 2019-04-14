@@ -142,11 +142,11 @@ a:visited{
 }
 
 @-webkit-keyframes fadeout {
-    0% {opacity:0.6;}
+    0% {opacity:1.0;}
     100% {opacity:0;}
 }
 @keyframes fadeout {
-    0% {opacity:0.6;}
+    0% {opacity:1.0;}
     100% {opacity:0;}
 }
 .fadeOut {
