@@ -28,6 +28,6 @@
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
     "babel-preset-env": "^1.7.0",
-    "three": "^0.102.1"
+    "three": "0.103.0"
   }
 }

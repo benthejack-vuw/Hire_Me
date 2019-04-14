@@ -28,7 +28,6 @@ import {
     renderer = set_up_threeJS();
     setup_gpu_prog();
     setup_html_listeners();
-    draw_loop();
     selected_button = document.getElementById("high");
   }
 
@@ -124,11 +123,11 @@ import {
     passes.velocity.link_pass_to_uniform("excretions", passes.excrete);
     passes.position.link_pass_to_uniform("velocities", passes.velocity);
     passes.excrete.link_pass_to_uniform("positions",   passes.position);
-    passes.excrete_a.link_pass_to_uniform("positions",   passes.position);
+    passes.excrete_a.link_pass_to_uniform("positions", passes.position);
     passes.excrete_a.set_uniform("do_alpha", true);
     passes.render.link_pass_to_uniform("excretions",   passes.excrete_a);
 
-    var colour_texture = new TextureLoader().load( 'assets/colour_gradient.jpg' );
+    var colour_texture = new TextureLoader().load('assets/colour_gradient.jpg', function(texture){ draw_loop(); } );
     passes.render.set_uniform("colour_map",   colour_texture);
   }
 
@@ -149,7 +148,7 @@ import {
 
     let previous_time = 0;
     passes.position.set_update_function(function(){
-      //framerate independent particle speeds!
+      //framerate independent particle speeds
       let elapsed = (Date.now()-start_time);
       let time_delta_step = (elapsed-previous_time)/fps_target_delta;
       passes.position.set_uniform("time_delta_step", time_delta_step);
