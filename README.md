@@ -1,6 +1,5 @@
 # Hi Field
 I'm really into the work you're doing and would love to have the opportunity to do it with you!
-I hope you don't mind me putting your logo in there, it felt a little cheeky but it looked slick.
 
 
 ## More about this piece
