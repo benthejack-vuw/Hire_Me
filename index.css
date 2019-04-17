@@ -4,13 +4,7 @@ body {
   overflow: hidden;
 }
 
-@media 
-(-webkit-min-device-pixel-ratio: 2), 
-(min-resolution: 192dpi) { 
-    body{
-	font-size:300%;
-    } 
-}
+
 
 canvas {
   position: absolute;
@@ -216,3 +210,16 @@ a:visited{
   width:0;
   height:3em;
 }
+
+@media 
+(-webkit-min-device-pixel-ratio: 2), 
+(min-resolution: 192dpi) { 
+    body{
+	font-size:500%;
+    } 
+
+    .menubutton{
+	font-size: 0.15em;
+    } 
+
+} 
