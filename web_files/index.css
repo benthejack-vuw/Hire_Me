@@ -25,15 +25,15 @@ a:visited{
 .linklogo{
   z-index: 10;
   position:fixed;
-  bottom:10pt;
+  bottom:1em;
 }
 
 .github{
-  right:5pt;
+  right:0.5em;
 }
 
 #githublogo{
-  height:15pt;
+  height:1.5em;
   opacity:0.4;
 }
 
@@ -42,21 +42,27 @@ a:visited{
 
 
 .banner{
-  width:50vw;
   position: fixed;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+
+  width:50vw;
+  width: calc(var(--vw, 1vw) * 50);
 }
 
 .verticalhorizontal {
     z-index: 0;
     position:fixed;
     display:table-cell;
-    height: 100vh;
     text-align: center;
-    width: 100vw;
     vertical-align: middle;
+
+    width: 100vw;
+    width: calc(var(--vw, 1vw) * 50);
+
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
 }
 
 .hellocontainer {
@@ -64,8 +70,12 @@ a:visited{
     z-index: 0;
     height: 0;
     text-align: center;
+
     width: 100vw;
+    width: calc(var(--vw, 1vw) * 100);
+
     top:30vh;
+    top: calc(var(--vh, 1vh) * 30);
 }
 
 #hello{
@@ -77,10 +87,12 @@ a:visited{
 .bar{
   z-index: 10;
   position: fixed;
-  width:100vw;
   background-color: #eeeeff;
   opacity: 0.9;
-  height:5pt;
+  height:0.5em;
+
+  width:100vw;
+  width: calc(var(--vw, 1vw) * 100);
 }
 
 .bottombar{
@@ -95,13 +107,15 @@ a:visited{
   position: relative;
   z-index: 10;
   opacity: 0.9;
-  top:5pt;
-  width:100vw;
+  top:0.5em;
   height:0;
   background-color:#eeeeff;
   overflow: hidden;
-  padding-left: 5pt;
-  padding-right: 5pt;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+
+  width:100vw;
+  width: calc(var(--vw, 1vw) * 100);
 }
 
 .chevronbox{
@@ -109,9 +123,11 @@ a:visited{
     padding:0;
     margin:0;
     position: relative;
-    top:5pt;
-    width:100vw;
+    top:0.5em;
     text-align:center;
+
+    width:100vw;
+    width: calc(var(--vw, 1vw) * 100);
 }
 
 
@@ -138,7 +154,7 @@ a:visited{
 }
 
 #chevron:hover{
-  border-color: #aaaacc;
+  border-color: #6666bb;
 }
 
 @-webkit-keyframes fadeout {
@@ -159,16 +175,16 @@ a:visited{
 .menubutton{
   float: left;
   display: table-cell;
-  width: 50pt;
-  height:25pt;
+  width: 5em;
+  height:2.5em;
   margin: 0;
   text-align: center;
   background-color: #aaaacc;
-  line-height: 25pt;
+  line-height: 2.5em;
   font-family: arial, sans-serif;
   cursor: pointer;
   user-select: none;
-  font-size: 12pt;
+  font-size: 0.8em;
 }
 
 .menubutton:hover{
@@ -182,13 +198,13 @@ a:visited{
 .right{
   position: relative;
   float:right;
-  margin-right:10pt;
-  width:70pt;
+  margin-right:1em;
+  width:7em;
   background-color: #eeeeff;
 }
 .spacer{
   position: relative;
   float:right;
   width:0;
-  height:30pt;
+  height:3em;
 }

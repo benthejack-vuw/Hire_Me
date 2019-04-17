@@ -1,3 +1,4 @@
+import setup_css_vars       from './css_vars.js'
 import * as all_settings    from './settings.js'
 import GPUComputeProgram    from './shaderCompute/gpuComputeProgram.js'
 import {create_output_pass} from './shaderCompute/outputTextureRect.js'
@@ -16,6 +17,7 @@ import {
 
 (function(){
 
+  setup_css_vars();
   document.addEventListener("DOMContentLoaded", start);
 
   let running = false;
