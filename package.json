@@ -1,7 +1,7 @@
 {
-  "name": "hello_field",
+  "name": "Hello_WebGL",
   "version": "0.0.1",
-  "description": "I'd love to work with you FIELD, your work is inspiring! Here's a little introduction to myself.",
+  "description": "If you're into VFX, Games, or Interaction design I'd love to work with you! Here's a little WebGL introduction to myself.",
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server --config webpack.config.dev.js --mode=development -d",
