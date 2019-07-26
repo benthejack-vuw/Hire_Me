@@ -47,8 +47,13 @@ a:visited{
   top: 50%;
   transform: translate(-50%, -50%);
 
+<<<<<<< HEAD:www/index.css
   width:70vw;
   width: calc(var(--vw, 1vw) * 70);
+=======
+  width:50vw;
+  width: calc(var(--vw, 1vw) * 50);
+>>>>>>> b079f9c2776a3ebd2a349b734b235e8b03e0d328:index.css
 }
 
 .verticalhorizontal {
