@@ -5,7 +5,7 @@ Contact me for either permanent or contract positions you need to fill at benthe
 www.dwmy.work  
   
 ## Key Skills:  
-VFX annd shader development -- Javascript/WebGL, C++, Java, Unity/C#  
+VFX and shader development -- Javascript/WebGL, C++, Java, Unity/C#  
 Interaction design and development -- Javascript/WebGL, C++ (Cinder or Openframeworks), Java (processing) Arduino, Raspberry Pi, Unity  
 Game development (Unity, AS3 before its demise)  
   
