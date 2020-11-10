@@ -7,11 +7,15 @@ www.dwmy.work
 
 ## Key Skills:
 2D & 3D visualization - Three.JS, D3, GLSL etc..
+
 Web development Javascript (es6, es7, es8, es2018)
+
 React, Redux, Jest & Enzyme, webpack, babel etc..
 
-VFX and shader development -- Javascript/WebGL, C++, Java, Unity/C#  
+VFX and shader development -- Javascript/WebGL, C++, Java, Unity/C#
+
 Game development (Unity, AS3 before its demise)
+
 Interaction design and development -- Javascript/WebGL, C++ (Cinder or Openframeworks), Java (processing) Arduino, Raspberry Pi, Unity  
 
 
