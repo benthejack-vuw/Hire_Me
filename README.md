@@ -1,18 +1,19 @@
 See this live at: https://benthejack-vuw.github.io/hello-webGL/
 
-# I'd love to work with you on interactives, Games, and VFX development  
-I've Just moved to the UK and am looking for work in Brighton, London, or remote.  
+# I'd love to work with you on 3D Visualization, interactives, Games, and/or VFX development    
 Contact me for either permanent or contract positions you need to fill at benthejack@gmail.com  
 
 www.dwmy.work  
 
 ## Key Skills:
+2D & 3D visualization - Three.JS, D3, GLSL etc..
+Web development Javascript (es6, es7, es8, es2018)
+React, Redux, Jest & Enzyme, webpack, babel etc..
+
 VFX and shader development -- Javascript/WebGL, C++, Java, Unity/C#  
 Game development (Unity, AS3 before its demise)
 Interaction design and development -- Javascript/WebGL, C++ (Cinder or Openframeworks), Java (processing) Arduino, Raspberry Pi, Unity  
 
-Web development Javascript (es6, es7, es8, es2018)
-React, Redux, Jest & Enzyme, webpack, babel etc..
 
 
 ## More about this piece
