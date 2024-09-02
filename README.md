@@ -6,11 +6,14 @@ Contact me for either permanent or contract positions you need to fill at benthe
 www.dwmy.work  
 
 ## Key Skills:
+
+Web development Typescript/Javascript, HTML, CSS
+
 2D & 3D visualization - Three.JS, D3, GLSL etc..
 
-Web development Javascript (es6, es7, es8, es2018)
-
 React, Redux, Jest & Enzyme, webpack, babel etc..
+
+Nextjs (app directory), AWS, Serverless framework
 
 VFX and shader development -- Javascript/WebGL, C++, Java, Unity/C#
 
