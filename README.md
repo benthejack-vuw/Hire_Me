@@ -1,6 +1,6 @@
 See this live at: https://benthejack-vuw.github.io/hello-webGL/
 
-# I'd love to work with you on 3D Visualization, interactives, Games, and/or VFX development    
+# I'd love to work with you on Interactive Web projects, 3D Visualization, interactive installations and experiences, Games, and/or VFX development    
 Contact me for either permanent or contract positions you need to fill at benthejack@gmail.com  
 
 www.dwmy.work  
